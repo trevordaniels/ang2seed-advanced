@@ -9,6 +9,8 @@ if (!Object.hasOwnProperty('name')) {
   });
 }
 
+//test commit
+
 // Turn on full stack traces in errors to help debugging
 Error.stackTraceLimit = Infinity;
 
