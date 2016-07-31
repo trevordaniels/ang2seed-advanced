@@ -9,10 +9,13 @@ import {LangSwitcherComponent} from '../../frameworks/i18n/index';
 import {NavbarComponent} from './navbar.component';
 import {ToolbarComponent} from './toolbar.component';
 
+//avalon
+import {WebAudioService, WebMicrophoneService} from '../../frameworks/avalon/index';
+
 @RouteComponent({
   moduleId: module.id,
   selector: 'sd-app',
-  viewProviders: [NameListService],
+  viewProviders: [NameListService, WebMicrophoneService, WebAudioService],
   templateUrl: 'app.component.html',
   directives: [LangSwitcherComponent, NavbarComponent, ToolbarComponent, PlatformDirective],
   changeDetection: ChangeDetectionStrategy.Default // Everything else uses OnPush

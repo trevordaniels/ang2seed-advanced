@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 // app
 import {FormComponent} from '../../frameworks/core/index';
 import {NameListService} from '../../frameworks/app/index';
+import {WebAudioService} from '../../frameworks/avalon/index';
 
 @FormComponent({
   moduleId: module.id,
@@ -13,8 +14,7 @@ import {NameListService} from '../../frameworks/app/index';
 })
 export class HomeComponent {
   public newName: string = '';
-  constructor(private store: Store<any>, public nameListService: NameListService) { 
-  
+  constructor(private store: Store<any>, public nameListService: NameListService, public webAudioService: WebAudioService) {   
   }
   
   /*
@@ -25,5 +25,10 @@ export class HomeComponent {
     this.nameListService.add(this.newName);
     this.newName = '';
     return false;
+  }
+
+  runAudio() {
+    console.log("running audio");
+    this.webAudioService.run();
   }
 }
