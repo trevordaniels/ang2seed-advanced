@@ -11,6 +11,8 @@
 
  <button (click)="runAudio()">Audio</button>
 
+ <a [href]="audioFileUrl" download="sound.webm" >Download audio</a>
+
 <form (submit)="addName()">
   <input [(ngModel)]="newName" name="newName" [placeholder]="'INPUT_HINT' | translate">
   <button type="submit">{{'ADD_BTN_TEXT' | translate}}</button>

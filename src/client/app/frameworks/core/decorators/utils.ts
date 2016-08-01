@@ -49,7 +49,7 @@ export class DecoratorUtils {
       metadata.changeDetection = metadata.changeDetection;
     } else {
       // default OnPush
-      metadata.changeDetection = ChangeDetectionStrategy.OnPush;
+      metadata.changeDetection = ChangeDetectionStrategy.Default;
     }
 
     if (metadata.encapsulation) {

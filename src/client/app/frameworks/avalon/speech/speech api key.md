@@ -7,6 +7,11 @@ Check keys [here](https://www.microsoft.com/cognitive-services/en-us/subscriptio
 
 Full API doc [here](https://www.microsoft.com/cognitive-services/en-us/speech-api/documentation/api-reference-rest/bingvoicerecognition)
 
+[Web Audio Media Recorder API](https://w3c.github.io/mediacapture-record/MediaRecorder.html#methods)
+
+[Google chrome dev media recorder doco](https://developers.google.com/web/updates/2016/01/mediarecorder?hl=en)
+
+[Another good sample with talk on reducing file size, uploading via xhr](http://typedarray.org/from-microphone-to-wav-with-getusermedia-and-web-audio/)
 ## How to use
 
 ### Obtain token

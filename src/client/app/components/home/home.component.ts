@@ -14,6 +14,8 @@ import {WebAudioService} from '../../frameworks/avalon/index';
 })
 export class HomeComponent {
   public newName: string = '';
+  public audioFileUrl: string = 'test';
+
   constructor(private store: Store<any>, public nameListService: NameListService, public webAudioService: WebAudioService) {   
   }
   
@@ -27,8 +29,11 @@ export class HomeComponent {
     return false;
   }
 
+//https://angular.io/docs/ts/latest/guide/security.html#!#xss blob is rendered as unsafe url!!
   runAudio() {
     console.log("running audio");
-    this.webAudioService.run();
+    this.webAudioService.run().then((url) => {
+        this.audioFileUrl = url;
+    });
   }
 }
