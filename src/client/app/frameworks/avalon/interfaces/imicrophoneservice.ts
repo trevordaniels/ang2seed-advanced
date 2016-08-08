@@ -1,4 +1,6 @@
 
+import {Observable} from 'rxjs/Observable';
+
 export interface IMicrophoneService {
-  getMicrophoneAudioStream(): Promise<MediaStream>;
+  getMicrophoneStream(): Observable<MediaStream>;
 }

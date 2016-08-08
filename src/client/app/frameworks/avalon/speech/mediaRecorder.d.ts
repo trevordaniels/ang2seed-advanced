@@ -11,8 +11,15 @@ declare enum RecordingState {
     "paused"
 }
 
+interface MediaRecorderOptions {
+     mimeType: string;
+     audioBitsPerSecond?:number;
+     videoBitsPerSecond?:number;
+     bitsPerSecond? :number;
+}
+
 interface MediaRecorderConstructor {
-    new (stream: MediaStream): MediaRecorder;
+    new (stream: MediaStream, options?: MediaRecorderOptions ): MediaRecorder;
 }
 
 interface Window {
@@ -32,7 +39,12 @@ interface MediaRecorder {
     pause(): void;
     resume(): void;
     requestData(): void;
+
+    ondataavailable: any; 
 }
+
+declare var MediaRecorder: MediaRecorderConstructor;
+
 // static isTypeSupported(type: string) : boolean;
 //  readonly attribute MediaStream    stream;
 //     readonly attribute DOMString      mimeType;
