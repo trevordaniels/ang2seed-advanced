@@ -10,6 +10,7 @@ export class SpeechTranslationService implements ISpeechTranslationService {
     constructor(private speechTranslationClient: BingSpeechTranslationClient) { }
 
     translate(audio: number[]): Observable<string> {
+        console.log("get Speech");
         return this.speechTranslationClient.sendAudio(audio)
             .map((response: any) => {
                 // console.log(response);

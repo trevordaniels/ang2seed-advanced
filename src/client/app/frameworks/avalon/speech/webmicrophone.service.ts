@@ -7,18 +7,14 @@ import {IMicrophoneService} from '../index'
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {Subscriber} from 'rxjs/Subscriber';
-import 'rxjs/add/observable/fromPromise';
 
 @Injectable()
 export class WebMicrophoneService implements IMicrophoneService {
-  
+
+  navigator: Navigator;
+
   constructor(window: WindowService) {
     this.navigator = window.navigator;
-  }
-
-  navigator : Navigator;
-
-  getMicrophoneStream(): Observable<MediaStream> {
     this.navigator.getUserMedia = (this.navigator.getUserMedia ||
       this.navigator.webkitGetUserMedia ||
       this.navigator.mozGetUserMedia ||
@@ -27,34 +23,25 @@ export class WebMicrophoneService implements IMicrophoneService {
     if (!this.navigator.getUserMedia) {
       throw Error("cannot get microphone");
     }
+  }
 
-    const audioConstraint: MediaStreamConstraints = { video: false, audio: true };
-    
-    var source = Observable.create( (observer: Subscriber<MediaStream>) => {
-      console.log('setting up get mic promise');
-      this.navigator.getUserMedia(audioConstraint,
+  getMicrophoneSource(): Observable<MediaStreamAudioSourceNode> {
+    return Observable.create((observer: Subscriber<MediaStreamAudioSourceNode>) => {
+      let audioContext = new AudioContext();
+      this.navigator.getUserMedia({ video: false, audio: true },
         (stream) => {
-          console.log("got stream from mic.ts");
-          // console.log(stream);
-          observer.next(stream);
+          let source = audioContext.createMediaStreamSource(stream);
+          observer.next(source);
           // observer.complete();
         },
         (err) => observer.error(err)
       );
-
+      // dispose resources
+      return () => {
+        // console.log('disposing');
+        audioContext.close();
+      };
     });
-
-    return source;
-    
-    // let pms = new Promise((resolve: (str: MediaStream) => void, reject: (str: MediaStreamError) => void) => {
-    //   console.log('setting up get mic promise');
-    //   this.navigator.getUserMedia(audioConstraint,
-    //     (stream) => resolve(stream),
-    //     (err) => reject(err)
-    //   );
-    // });
-
-    // return Observable.fromPromise(pms);
-
   }
+
 }

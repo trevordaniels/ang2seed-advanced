@@ -11,15 +11,12 @@
 
  <button (click)="runAudio()">Audio</button>
 
- <a [href]="audioFileUrl" download="sound.webm" >Download audio</a>
-
-<form (submit)="addName()">
-  <input [(ngModel)]="newName" name="newName" [placeholder]="'INPUT_HINT' | translate">
-  <button type="submit">{{'ADD_BTN_TEXT' | translate}}</button>
-</form>
+<h1>{{phrases}}</h1>
 
 
 
+<!--
 <ul>
-  <li *ngFor="let name of nameListService.names | async">{{name}}</li>
+  <li *ngFor="let phrase of phrases">{{phrase}}</li>
 </ul>
+ -->

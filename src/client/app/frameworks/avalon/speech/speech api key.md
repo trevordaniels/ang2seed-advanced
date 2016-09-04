@@ -21,6 +21,7 @@
 
 [Nice js code to transcode audio files to webm in browser](https://rawgit.com/Miguelao/demos/master/audiotranscode.html)
 
+[Detecting silence](http://stackoverflow.com/questions/24515978/html-audio-recording-until-silence)
 # Android
 
 [Convert wav/ogg to flac](http://stackoverflow.com/questions/9733064/how-to-convert-the-wav-ogg-file-to-flac-file-in-android)

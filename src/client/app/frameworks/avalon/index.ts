@@ -12,7 +12,7 @@ export * from './speech/speechTranslation.service';
 export * from './authentication.service';
 export * from './speech/riffFileFactory';
 
-export * from './avalon.app';
+export * from './avalon.service';
 // // app
 // import {WebAudioService} from './speech/webaudio.service';
 // import {WebMicrophoneService} from './speech/webmicrophone.service';

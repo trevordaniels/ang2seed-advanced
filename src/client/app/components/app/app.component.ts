@@ -10,19 +10,19 @@ import {NavbarComponent} from './navbar.component';
 import {ToolbarComponent} from './toolbar.component';
 
 //avalon
-import {WebAudioService, WebMicrophoneService, AvalonApp, RiffFileFactory, AuthenticationService, ISpeechTranslationService, SpeechTranslationService, BingSpeechTranslationClient, ISpeechTranslationClient} from '../../frameworks/avalon/index';
+import {WebAudioService, WebMicrophoneService, AvalonService, RiffFileFactory, AuthenticationService, ISpeechTranslationService, SpeechTranslationService, BingSpeechTranslationClient, ISpeechTranslationClient} from '../../frameworks/avalon/index';
 
 @RouteComponent({
   moduleId: module.id,
   selector: 'sd-app',
-  viewProviders: [NameListService, WebMicrophoneService, WebAudioService, RiffFileFactory, AuthenticationService, BingSpeechTranslationClient, SpeechTranslationService, AvalonApp],
-  providers: [NameListService, WebMicrophoneService, WebAudioService, RiffFileFactory, AuthenticationService, BingSpeechTranslationClient, SpeechTranslationService, AvalonApp],
+  viewProviders: [NameListService, WebMicrophoneService, WebAudioService, RiffFileFactory, AuthenticationService, BingSpeechTranslationClient, SpeechTranslationService, AvalonService],
+  providers: [NameListService, WebMicrophoneService, WebAudioService, RiffFileFactory, AuthenticationService, BingSpeechTranslationClient, SpeechTranslationService, AvalonService],
   templateUrl: 'app.component.html',
   directives: [LangSwitcherComponent, NavbarComponent, ToolbarComponent, PlatformDirective],
   changeDetection: ChangeDetectionStrategy.Default // Everything else uses OnPush
 })
 export class AppComponent {
   constructor(public analytics: AnalyticsService) {
-
+ 
   }
 }

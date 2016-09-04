@@ -1,13 +1,15 @@
 // libs
 import {Store} from '@ngrx/store';
 
+
 //ang2
 import {DomSanitizationService, SafeUrl} from '@angular/platform-browser'
+import {ChangeDetectorRef} from '@angular/core';
 
 // app
 import {FormComponent} from '../../frameworks/core/index';
 import {NameListService} from '../../frameworks/app/index';
-import {AvalonApp} from '../../frameworks/avalon/index';
+import {AvalonService} from '../../frameworks/avalon/index';
 
 @FormComponent({
   moduleId: module.id,
@@ -19,12 +21,16 @@ export class HomeComponent {
   public newName: string = '';
   public audioFileUrl: SafeUrl = 'test';
 
+ phrases: string = "Get ready";
+
+
   constructor(
     private store: Store<any>,
     public nameListService: NameListService,
     // public webAudioService: WebAudioService,
-    public avalonApp: AvalonApp,
-    private sanitizer: DomSanitizationService) {
+    public avalonService: AvalonService,
+    private sanitizer: DomSanitizationService,
+  private cd: ChangeDetectorRef) {
   }
 
   /*
@@ -39,11 +45,18 @@ export class HomeComponent {
 
   //https://angular.io/docs/ts/latest/guide/security.html#!#xss blob is rendered as unsafe url!!
   runAudio() {
+    this.phrases = "Atarting audio";
+    this.cd.markForCheck();
     console.log("running audio");
-    this.avalonApp.main();
+    this.avalonService.translate().subscribe(
+      (x) => {
+        this.phrases = x;
+        this.cd.markForCheck();
+      }
+    );
     
     // .then((audioFileUrl) => {      
     //   this.audioFileUrl = this.sanitizer.bypassSecurityTrustUrl(audioFileUrl);
     // });
   }
-}
+} 
