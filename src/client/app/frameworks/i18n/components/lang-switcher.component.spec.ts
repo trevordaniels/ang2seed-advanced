@@ -1,5 +1,6 @@
-import {TestComponentBuilder} from '@angular/compiler/testing';
+import {TestComponentBuilder, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 
 // libs
@@ -19,19 +20,27 @@ const SUPPORTED_LANGUAGES: Array<ILang> = [
   { code: 'bg', title: 'Bulgarian' }
 ];
 
+// test module configuration for each test
+const testModuleConfig = () => {
+  TestBed.configureTestingModule({
+    imports: [FormsModule],
+    providers: [
+      TEST_CORE_PROVIDERS(),
+      TEST_HTTP_PROVIDERS(),
+      TEST_ROUTER_PROVIDERS(),
+      TEST_MULTILINGUAL_PROVIDERS(),
+      provideStore({ i18n: multilingualReducer })
+    ]
+  });
+};
+
 export function main() {
   t.describe('i18n:', () => {
     t.describe('@Component: LangSwitcherComponent', () => {
-      t.bep(() => [
-        TEST_CORE_PROVIDERS(),
-        TEST_HTTP_PROVIDERS(),
-        TEST_ROUTER_PROVIDERS(),
-        TEST_MULTILINGUAL_PROVIDERS(),
-        provideStore({ i18n: multilingualReducer })
-      ]);
-      
+      t.be(testModuleConfig);
+
       t.it('should work',
-        t.fakeAsync(t.inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        t.async(t.inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
           return tcb.createAsync(TestComponent)
             .then(rootTC => {
               rootTC.detectChanges();
@@ -41,22 +50,18 @@ export function main() {
             });
         })));
     });
-    
+
     t.describe('@Component: LangSwitcherComponent with multiple languages', () => {
-      t.be(() => MultilingualService.SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES);
-      t.bep(() => [
-        TEST_CORE_PROVIDERS(),
-        TEST_HTTP_PROVIDERS(),
-        TEST_ROUTER_PROVIDERS(),
-        TEST_MULTILINGUAL_PROVIDERS(),
-        provideStore({ i18n: multilingualReducer })
-      ]);
+      t.be(() => {
+        MultilingualService.SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES;
+        testModuleConfig();
+      });
 
       // ensure statics are reset when the test had modified statics in a beforeEach (be) or beforeEachProvider (bep)
-      t.ae(() => TEST_MULTILINGUAL_RESET());   
-      
+      t.ae(() => TEST_MULTILINGUAL_RESET());
+
       t.it('should work',
-        t.fakeAsync(t.inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        t.async(t.inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
           return tcb.createAsync(TestComponent)
             .then(rootTC => {
               rootTC.detectChanges();
@@ -68,7 +73,7 @@ export function main() {
               t.e(getDOM().querySelectorAll(appDOMEl, 'form > select option')[3].value).toBe('ru');
               t.e(getDOM().querySelectorAll(appDOMEl, 'form > select option')[4].value).toBe('bg');
             });
-        }))); 
+        })));
     });
   });
 }

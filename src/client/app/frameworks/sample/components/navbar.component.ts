@@ -1,7 +1,7 @@
 // app
-import {RouteComponent} from '../../frameworks/core/index';
+import {BaseComponent} from '../../core/index';
 
-@RouteComponent({
+@BaseComponent({
   moduleId: module.id,
   selector: 'sd-navbar',
   templateUrl: 'navbar.component.html',
