@@ -1,17 +1,19 @@
 // libs
-import {Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 
 //ang2
 import {DomSanitizationService, SafeUrl} from '@angular/platform-browser'
 import {ChangeDetectorRef} from '@angular/core';
 
+
 // app
-import {FormComponent} from '../../frameworks/core/index';
-import {NameListService} from '../../frameworks/app/index';
+import { BaseComponent, RouterExtensions } from '../../frameworks/core/index';
+import { NameListService } from '../../frameworks/sample/index';
+
 import {AvalonService} from '../../frameworks/avalon/index';
 
-@FormComponent({
+@BaseComponent({
   moduleId: module.id,
   selector: 'sd-home',
   templateUrl: 'home.component.html',
@@ -23,17 +25,17 @@ export class HomeComponent {
 
  phrases: string = "Get ready";
 
+ constructor(
+   private store: Store<any>,
+   public nameListService: NameListService,
+   public routerext: RouterExtensions,
+   // public webAudioService: WebAudioService,
+   public avalonService: AvalonService,
+   private sanitizer: DomSanitizationService,
+   private cd: ChangeDetectorRef) {
+ }
 
-  constructor(
-    private store: Store<any>,
-    public nameListService: NameListService,
-    // public webAudioService: WebAudioService,
-    public avalonService: AvalonService,
-    private sanitizer: DomSanitizationService,
-  private cd: ChangeDetectorRef) {
-  }
-
-  /*
+   /*
    * @param newname  any text as input.
    * @returns return false to prevent default form submit behavior to refresh the page.
    */
@@ -54,9 +56,20 @@ export class HomeComponent {
         this.cd.markForCheck();
       }
     );
-    
-    // .then((audioFileUrl) => {      
+
+    // .then((audioFileUrl) => {
     //   this.audioFileUrl = this.sanitizer.bypassSecurityTrustUrl(audioFileUrl);
     // });
   }
-} 
+
+  readAbout() {
+    // Try this in the {N} app
+    // {N} can use these animation options
+    this.routerext.navigate(['/about'], {
+      transition: {
+        duration: 1000,
+        name: 'slideTop',
+      }
+    });
+  }
+}
